@@ -5,7 +5,11 @@ import java.io.File;
 
 public class MatrixMaker {
 	
-	
+	/*
+	 * _____fMakeMatrix_____
+	 * - Returns a matrix from a properly formatted .txt file
+	 * - If improperly formatted, throws exceptions and exits
+	 */
 	public static Matrix fMakeMatrix(String fPath){
 		Scanner scan = null;
 		Matrix m = null;
@@ -20,14 +24,20 @@ public class MatrixMaker {
 	        		 m.changeIndex(r, c, scan.nextDouble());
 	        	 }
 	         }
-	         
 	    } catch (Exception e) {
 	    	e.printStackTrace();
+	    	System.exit(1);
 	    }
 		
 		return m;
 	}
 	
+	/*
+	 * _____getSizeOf_____
+	 * - Returns an array of size 2
+	 * - arr[0] is rows, arr[1] is columns
+	 * - Throws errors for invalid formatting
+	 */
 	private static int[] getSizeOf(String s){
 		int[] size = new int[2];
 		Scanner line;
