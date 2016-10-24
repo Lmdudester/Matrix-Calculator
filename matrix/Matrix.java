@@ -35,7 +35,7 @@ public class Matrix {
 	 * - Returns the double value at the given position
 	 */
 	public double accessIndex(int r, int c){
-		if(r >= rows || r <= 0 || c >= columns || c <= 0)
+		if(r >= rows || r < 0 || c >= columns || c < 0)
 			throw new ArrayIndexOutOfBoundsException("Matrix is [" + rows + ", " + columns + "]. Position ["
 					+ r + ", " + c + "] does not exist.");
 		return matrix[r][c];
