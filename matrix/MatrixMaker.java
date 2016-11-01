@@ -1,10 +1,8 @@
-package matrix;
-
 import java.util.Scanner;
 import java.io.File;
 
 public class MatrixMaker {
-	
+
 	/*
 	 * _____fMakeMatrix_____
 	 * - Returns a matrix from a properly formatted .txt file
@@ -17,21 +15,46 @@ public class MatrixMaker {
 	         File file = new File(fPath);
 	         scan = new Scanner(file);
 	         int[] size = getSizeOf(scan.nextLine());
-	         
+
 	         m = new Matrix(size[0],size[1]);
 	         for(int r = 0; r < size[0]; r++){
 	        	 for(int c = 0; c < size[1]; c++){
-	        		 m.changeIndex(r, c, scan.nextDouble());
+	        		 m.setIndex(r, c, scan.nextDouble());
 	        	 }
 	         }
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	    	System.exit(1);
 	    }
-		
+
 		return m;
 	}
-	
+
+	public static Matrix fcMakeMatrix(String csvPath){
+		Scanner scan = null;
+		Matrix m = null;
+		try {
+	         File file = new File(csvPath);
+	         scan = new Scanner(file);
+					 scan.useDelimiter(",");
+	         int[] size = getSizeOf(scan.nextLine());
+	         m = new Matrix(size[0],size[1]);
+	         for(int r = 0; r < size[0]; r++){
+						 Scanner line = new Scanner(scan.nextLine());
+						 line.useDelimiter(",");
+	        	 for(int c = 0; c < size[1]; c++){
+	        		 m.setIndex(r, c, line.nextInt());
+	        	 }
+	         }
+	    } catch (Exception e) {
+				System.out.println(scan.next());
+	    	e.printStackTrace();
+	    	System.exit(1);
+	    }
+
+		return m;
+	}
+
 	/*
 	 * _____getSizeOf_____
 	 * - Returns an array of size 2
@@ -43,14 +66,15 @@ public class MatrixMaker {
 		Scanner line;
 		try{
 			line = new Scanner(s);
+			line.useDelimiter(",");
 			size[0] = line.nextInt();
 			line.next();
 			size[1] = line.nextInt();
-			
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return size;
 	}
 }
