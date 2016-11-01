@@ -13,47 +13,32 @@ public class MatrixMaker {
 		Matrix m = null;
 		try {
 	         File file = new File(fPath);
+					 //System.out.println(fPath.substring(fPath.length() - 4));
+					 Boolean isCSV = (fPath.length() > 4) && (fPath.substring(fPath.length() - 4).equals(".csv"));
+					 //System.out.println(isCSV);
 	         scan = new Scanner(file);
 	         int[] size = getSizeOf(scan.nextLine());
-
-	         m = new Matrix(size[0],size[1]);
-	         for(int r = 0; r < size[0]; r++){
-	        	 for(int c = 0; c < size[1]; c++){
-	        		 m.setIndex(r, c, scan.nextDouble());
-	        	 }
-	         }
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    	System.exit(1);
-	    }
-
-		return m;
-	}
-
-	public static Matrix fcMakeMatrix(String csvPath){
-		Scanner scan = null;
-		Matrix m = null;
-		try {
-	         File file = new File(csvPath);
-	         scan = new Scanner(file);
-					 scan.useDelimiter(",");
-	         int[] size = getSizeOf(scan.nextLine());
+					 if(isCSV){
+						 scan.useDelimiter(",");
+					 }
 	         m = new Matrix(size[0],size[1]);
 	         for(int r = 0; r < size[0]; r++){
 						 Scanner line = new Scanner(scan.nextLine());
-						 line.useDelimiter(",");
-	        	 for(int c = 0; c < size[1]; c++){
-	        		 m.setIndex(r, c, line.nextInt());
-	        	 }
+						 if(isCSV){
+							 line.useDelimiter(",");
+						 }
+					 	 for(int c = 0; c < size[1]; c++){
+						 		m.setIndex(r, c, line.nextDouble());
+					 	 }
 	         }
 	    } catch (Exception e) {
-				System.out.println(scan.next());
 	    	e.printStackTrace();
 	    	System.exit(1);
 	    }
 
 		return m;
 	}
+
 
 	/*
 	 * _____getSizeOf_____
@@ -66,7 +51,9 @@ public class MatrixMaker {
 		Scanner line;
 		try{
 			line = new Scanner(s);
-			line.useDelimiter(",");
+			if(s.contains(",")){
+				line.useDelimiter(",");
+			}
 			size[0] = line.nextInt();
 			line.next();
 			size[1] = line.nextInt();
