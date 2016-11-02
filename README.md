@@ -1,12 +1,12 @@
 # Java Matrix Calculator
 
-Performs basic operations upon Matrices stored in text files.
+Performs basic operations upon Matrices stored in text or csv files.
 
 Developed Using Java.
 
 ## Coming Soon:
 
-  - Support for CSV files, to allow matrices to be stored in excel sheets.
+  - Matrix Subtraction, RREF Generation, Identity Generation.
 
 ## Format for [matrix name].txt Files:
 
@@ -15,5 +15,13 @@ Developed Using Java.
     d e f ...
     g h i ...
     ...   ...
+
+## Format for [matrix name].csv Files:
+
+    m,x,n
+    a, b, c, ...
+    d, e, f, ...
+    g, h, i, ...
+    .,.,.,   ...
     
 Developed by Liam Davies, with contributions by David Parsons
