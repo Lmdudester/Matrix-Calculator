@@ -1,10 +1,12 @@
+import java.util.Scanner;
+import java.io.File;
 
 public class Matrix {
-	double[][] matrix;
+	private double[][] matrix;
 	int rows, columns;
 
 	/*
-	 * _____Matrix()_____
+	 * _____Matrix(int r, int c)_____
 	 * - Creates an empty matrix with r rows and c columns
 	 * - Initializes all values to 0.0
 	 */
@@ -14,6 +16,45 @@ public class Matrix {
 		columns = c;
 	}
 
+	/*
+	 * _____Matrix(String fPath)_____
+	 * - Creates an matrix based on a properly formatted .csv or .txt file
+	 */
+	public Matrix(String fPath){
+		Scanner scan = null;
+		try {
+	         File file = new File(fPath);
+					 //System.out.println(fPath.substring(fPath.length() - 4));
+					 Boolean isCSV = (fPath.length() > 4) && (fPath.substring(fPath.length() - 4).equals(".csv"));
+					 //System.out.println(isCSV);
+	         scan = new Scanner(file);
+
+					 //Reads size of matrix and creates a properly sized matrix
+					 Scanner line = new Scanner(scan.nextLine());
+					 if(isCSV){
+						 scan.useDelimiter(",");
+						 line.useDelimiter(",");
+					 }
+					 rows = line.nextInt();
+		 			 line.next();
+		 			 columns = line.nextInt();
+					 matrix = new double[rows][columns];
+
+					 //Places all values into Matrix
+	         for(int r = 0; r < rows; r++){
+						 line = new Scanner(scan.nextLine());
+						 if(isCSV){
+							 line.useDelimiter(",");
+						 }
+					 	 for(int c = 0; c < columns; c++){
+						 		this.setIndex(r, c, line.nextDouble());
+					 	 }
+	         }
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    	System.exit(1);
+	    }
+	}
 
 	/*****Index Editing*****/
 

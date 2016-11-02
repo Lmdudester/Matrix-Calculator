@@ -5,8 +5,8 @@ public class MatrixRunner {
 		for(String s : args){
 			System.out.println(s);
 		}
-		Matrix m1 = MatrixMaker.fMakeMatrix(args[0]);
-		Matrix m2 = MatrixMaker.fMakeMatrix(args[1]);
+		Matrix m1 = new Matrix(args[0]);
+		Matrix m2 = new Matrix(args[1]);
 
 		System.out.println("Matrix 1:\n" + m1.toString());
 		System.out.println("Matrix 2:\n" + m1.toString());
