@@ -1,13 +1,23 @@
-all: Matrix Main
+all: Matrix Main clean
 
-Matrix: Matrix.java MatrixArithmetic.java MatrixMaker.java
+Matrix: Matrix.java MatrixArithmetic.java
 	javac Matrix.java
 	javac MatrixArithmetic.java
-	javac MatrixMaker.java
 
 Main: MatrixRunner.java
 	javac MatrixRunner.java
-	java MatrixRunner m1.csv m2.csv
-	java MatrixRunner m1.txt m2.txt
-	java MatrixRunner m1.txt m2.csv
-	java MatrixRunner m1.csv m2.txt
+	java MatrixRunner m1.csv + m2.csv
+	java MatrixRunner m1.txt + m2.txt
+	java MatrixRunner m1.txt + m2.csv
+	java MatrixRunner m1.csv + m2.txt
+	java MatrixRunner m1.csv - m2.csv
+	java MatrixRunner m1.txt - m2.txt
+	java MatrixRunner m1.txt - m2.csv
+	java MatrixRunner m1.csv - m2.txt
+	java MatrixRunner m1.csv x m2.csv
+	java MatrixRunner m1.txt x m2.txt
+	java MatrixRunner m1.txt x m2.csv
+	java MatrixRunner m1.csv x m2.txt
+
+clean:
+	rm -f *.class
