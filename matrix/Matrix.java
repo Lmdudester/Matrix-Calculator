@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.io.File;
+import java.lang.IllegalStateException;
 
 public class Matrix {
 	private double[][] matrix;
@@ -25,7 +26,7 @@ public class Matrix {
 		try {
 	         File file = new File(fPath);
 					 //System.out.println(fPath.substring(fPath.length() - 4));
-					 Boolean isCSV = (fPath.length() > 4) && (fPath.substring(fPath.length() - 4).equals(".csv"));
+					 boolean isCSV = (fPath.length() > 4) && (fPath.substring(fPath.length() - 4).equals(".csv"));
 					 //System.out.println(isCSV);
 	         scan = new Scanner(file);
 
@@ -56,7 +57,17 @@ public class Matrix {
 	    }
 	}
 
+
+
 	/*****Index Editing*****/
+
+	public int getRows(){
+		return this.rows;
+	}
+
+	public int getColumns(){
+		return this.columns;
+	}
 
 	/*
 	 * _____changeIndex()_____
@@ -82,6 +93,39 @@ public class Matrix {
 	}
 
 
+	/*****Instance Methods******/
+
+	public boolean isSymmetric(){
+		if(this.rows != this.columns){
+			return false;
+		}
+		for(int c = 0; c < this.columns; c ++){
+			for(int r = c + 1; r < this.rows; r ++){
+				if(this.matrix[r][c] != this.matrix[c][r]){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean equals(Matrix input){
+		if(input == null || !(input instanceof Matrix)){
+			return false;
+		}
+		if(this.rows != input.getRows() || this.columns != input.getColumns()){
+			return false;
+		}
+		for(int r = 0; r < this.rows; r++){
+			for(int c = 0; c < this.columns; c++){
+				if(this.matrix[r][c] != input.getIndex(r,c)){
+					return false;
+				}
+			}
+		}
+		return false;
+	}
 	/*****Elementary Operations*****/
 
 	/*
@@ -189,4 +233,75 @@ public class Matrix {
 			throw new ArrayIndexOutOfBoundsException("Matrix is [" + rows + ", " + columns + "]. Row " +
 					val + " does not exist.");
 	}
+
+
+	/*
+	 * _____add_____
+	 * - Adds two Matrices and returns the resulting matrix
+	 * - Throws an error if sizes don't match
+	 */
+	public static Matrix add(Matrix m1, Matrix m2){
+		if(m1.rows != m2.rows || m1.columns != m2.columns){
+			throw new IllegalStateException("Cannot Add Matricies of Different Sizes.");
+		}
+
+		Matrix result = new Matrix(m1.rows, m1.columns);
+
+		for(int r = 0; r < m1.rows; r++){
+			for(int c = 0; c < m1.columns; c++){
+				result.setIndex(r, c, (m1.getIndex(r, c) + m2.getIndex(r, c)));
+			}
+		}
+
+		return result;
+	}
+
+	/*
+	 * _____subtract_____
+	 * - Subtracts two Matrices and returns the resulting matrix
+	 * - Throws an error if sizes don't match
+	 */
+	public static Matrix subtract(Matrix m1, Matrix m2){
+		if(m1.rows != m2.rows || m1.columns != m2.columns){
+			throw new IllegalStateException("Cannot Add Matricies of Different Sizes.");
+		}
+
+		Matrix result = new Matrix(m1.rows, m1.columns);
+
+		for(int r = 0; r < m1.rows; r++){
+			for(int c = 0; c < m1.columns; c++){
+				result.setIndex(r, c, (m1.getIndex(r, c) - m2.getIndex(r, c)));
+			}
+		}
+
+		return result;
+	}
+
+	/*
+	 * _____multiply_____
+	 * - Multiplies two Matrices and returns the resulting matrix
+	 * - Throws an error if sizes don't match
+	 */
+	public static Matrix multiply(Matrix m1, Matrix m2){
+		if(m1.columns != m2.rows){
+			throw new IllegalStateException("Error: Matrix 1 must have the same number of columns as Matrix 2 has rows.");
+		}
+
+		Matrix result = new Matrix(m1.rows, m2.columns);
+
+		//should improve this efficency
+		for(int r = 0; r < m1.rows; r++){
+			for(int c = 0; c < m2.columns; c++){
+				double newValue = 0.0;
+				for(int i = 0; i < m1.columns; i++){
+					newValue += (m1.getIndex(r, i)) * (m2.getIndex(i, c));
+				}
+				result.setIndex(r, c, newValue);
+			}
+		}
+
+		return result;
+	}
+
+
 }

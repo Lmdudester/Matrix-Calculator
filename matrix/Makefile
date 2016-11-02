@@ -1,8 +1,7 @@
 all: Matrix Main clean
 
-Matrix: Matrix.java MatrixArithmetic.java
+Matrix: Matrix.java
 	javac Matrix.java
-	javac MatrixArithmetic.java
 
 Main: MatrixRunner.java
 	javac MatrixRunner.java

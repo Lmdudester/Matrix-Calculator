@@ -15,20 +15,24 @@ public class MatrixRunner {
 
 		System.out.println("Matrix 1:\n" + m1.toString());
 		System.out.println("Matrix 2:\n" + m2.toString());
+		if(m1.equals(m2)){
+			System.out.println("m1 is the same as m2");
+		}
 
 		Matrix result = null;
 		if(operation == '+'){
-			result = MatrixArithmetic.add(m1, m2);
+			result = Matrix.add(m1, m2);
 		} else if(operation == '-'){
-			result = MatrixArithmetic.subtract(m1, m2);
+			result = Matrix.subtract(m1, m2);
 		} else if(operation == 'x'){
-			result = MatrixArithmetic.multiply(m1, m2);
+			result = Matrix.multiply(m1, m2);
 		} else {
 			System.out.println(operation + " is not a valid operation.");
 			return;
 		}
 
 		System.out.println("Matrix Operation Result:\n" + result.toString());
+		System.out.println("The result matrix is: " + (result.isSymmetric() ? "Symmetric" : "Not Symmetric"));
 
 	}
 
