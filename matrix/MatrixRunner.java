@@ -16,7 +16,7 @@ public class MatrixRunner {
 		System.out.println("Matrix 1:\n" + m1.toString());
 		System.out.println("Matrix 2:\n" + m2.toString());
 		if(m1.equals(m2)){
-			System.out.println("m1 is the same as m2");
+			System.out.println("\nEquality: m1 is the same matrix as m2\n");
 		}
 
 		Matrix result = null;
