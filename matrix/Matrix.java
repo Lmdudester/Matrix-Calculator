@@ -1,3 +1,5 @@
+package matrix;
+
 import java.util.Scanner;
 import java.io.File;
 import java.lang.IllegalStateException;
@@ -109,23 +111,23 @@ public class Matrix {
 		return true;
 	}
 
-	@Override
-	public boolean equals(Matrix input){
-		if(input == null || !(input instanceof Matrix)){
-			return false;
-		}
-		if(this.rows != input.getRows() || this.columns != input.getColumns()){
-			return false;
-		}
-		for(int r = 0; r < this.rows; r++){
-			for(int c = 0; c < this.columns; c++){
-				if(this.matrix[r][c] != input.getIndex(r,c)){
-					return false;
-				}
-			}
-		}
-		return false;
-	}
+	// @Override
+	// public boolean equals(Matrix input){
+	// 	if(input == null || !(input instanceof Matrix)){
+	// 		return false;
+	// 	}
+	// 	if(this.rows != input.getRows() || this.columns != input.getColumns()){
+	// 		return false;
+	// 	}
+	// 	for(int r = 0; r < this.rows; r++){
+	// 		for(int c = 0; c < this.columns; c++){
+	// 			if(this.matrix[r][c] != input.getIndex(r,c)){
+	// 				return false;
+	// 			}
+	// 		}
+	// 	}
+	// 	return false;
+	// }
 	/*****Elementary Operations*****/
 
 	/*
@@ -198,6 +200,12 @@ public class Matrix {
 
 		for(int c = 0; c < columns; c++){
 			matrix[r2 - 1][c] += scalar*matrix[r1 - 1][c];
+		}
+	}
+
+	public void scaleMatrix(double scalar){
+		for(int r = 0; r < this.rows; r++){
+			this.rowScale(r, scalar);
 		}
 	}
 
@@ -302,6 +310,5 @@ public class Matrix {
 
 		return result;
 	}
-
 
 }
