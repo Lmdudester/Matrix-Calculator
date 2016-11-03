@@ -97,6 +97,10 @@ public class Matrix {
 
 	/*****Instance Methods******/
 
+	/*
+	 * _____isSymmetric_____
+	 * - Returns true if the matrix is symmetric
+	*/
 	public boolean isSymmetric(){
 		if(this.rows != this.columns){
 			return false;
@@ -111,23 +115,27 @@ public class Matrix {
 		return true;
 	}
 
-	// @Override
-	// public boolean equals(Matrix input){
-	// 	if(input == null || !(input instanceof Matrix)){
-	// 		return false;
-	// 	}
-	// 	if(this.rows != input.getRows() || this.columns != input.getColumns()){
-	// 		return false;
-	// 	}
-	// 	for(int r = 0; r < this.rows; r++){
-	// 		for(int c = 0; c < this.columns; c++){
-	// 			if(this.matrix[r][c] != input.getIndex(r,c)){
-	// 				return false;
-	// 			}
-	// 		}
-	// 	}
-	// 	return false;
-	// }
+	/*
+	 * _____equals_____
+	 * - Returns true if the current instance and parameter matrix are equal
+ 	*/
+ 	public boolean equals(Matrix input){
+	 	if(input == null || !(input instanceof Matrix)){
+	 		return false;
+		}
+	 	if(this.rows != input.getRows() || this.columns != input.getColumns()){
+			return false;
+		}
+		for(int r = 0; r < this.rows; r++){
+	 		for(int c = 0; c < this.columns; c++){
+				if(this.matrix[r][c] != input.getIndex(r,c)){
+	 				return false;
+	 			}
+	 		}
+		}
+		return true;
+  }
+
 	/*****Elementary Operations*****/
 
 	/*
@@ -209,7 +217,6 @@ public class Matrix {
 		}
 	}
 
-
 	/*****Output Methods****/
 
 	/* _____toString_____
@@ -242,6 +249,7 @@ public class Matrix {
 					val + " does not exist.");
 	}
 
+	/*****Arithmetic Methods*****/
 
 	/*
 	 * _____add_____
