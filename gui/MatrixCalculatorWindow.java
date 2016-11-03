@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.File;
 import matrix.*;
+import java.nio.file.*;
 
 public class MatrixCalculatorWindow extends JFrame implements ActionListener {
 
@@ -13,8 +14,10 @@ public class MatrixCalculatorWindow extends JFrame implements ActionListener {
   File[] files;
   Matrix m1, m2;
   char operation;
+  String mainDirectory = Paths.get("").toAbsolutePath().toString();
 
   public MatrixCalculatorWindow() {
+    mainDirectory.replace("\\","/");
     this.setTitle("Matrix Calculator");
     this.setSize(450, 170);
 
@@ -114,7 +117,7 @@ public class MatrixCalculatorWindow extends JFrame implements ActionListener {
   }
 
   public void loadFiles(){
-    File dir = new File("C:/Users/David/Documents/GitHub/Matrix-Calculator/matrices");
+    File dir = new File(mainDirectory + "/matrices");
     files = dir.listFiles();
     if(files != null){
       cbxM1.addItem("");
