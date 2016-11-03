@@ -119,8 +119,17 @@ public class Matrix {
 	 * _____equals_____
 	 * - Returns true if the current instance and parameter matrix are equal
  	*/
- 	public boolean equals(Matrix input){
-	 	if(input == null || !(input instanceof Matrix)){
+	@Override
+ 	public boolean equals(Object obj){
+		if (obj == null) {
+        return false;
+    }
+    if (!Matrix.class.isAssignableFrom(obj.getClass())) {
+        return false;
+    }
+    final Matrix input = (Matrix) obj;
+
+		if(input == null || !(input instanceof Matrix)){
 	 		return false;
 		}
 	 	if(this.rows != input.getRows() || this.columns != input.getColumns()){
@@ -223,6 +232,7 @@ public class Matrix {
 	 * - Converts Matrix to a string
 	 * - Must be on a line by itself to look neat
 	 */
+	@Override
 	public String toString(){
 		StringBuilder result = new StringBuilder();
 		for(int r = 0; r < rows; r++){
