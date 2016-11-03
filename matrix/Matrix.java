@@ -232,6 +232,7 @@ public class Matrix {
 	 * - Converts Matrix to a string
 	 * - Must be on a line by itself to look neat
 	 */
+	@Override
 	public String toString(){
 		StringBuilder result = new StringBuilder();
 		for(int r = 0; r < rows; r++){
