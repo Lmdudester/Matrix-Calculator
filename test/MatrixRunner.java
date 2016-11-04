@@ -1,3 +1,6 @@
+package test;
+
+import matrix.*;
 
 public class MatrixRunner {
 
