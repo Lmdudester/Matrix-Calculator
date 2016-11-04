@@ -19,7 +19,7 @@ public class MatrixCalculatorWindow extends JFrame implements ActionListener {
   public MatrixCalculatorWindow() {
     mainDirectory.replace("\\","/");
     this.setTitle("Matrix Calculator");
-    this.setSize(450, 170);
+    this.setSize(210, 125);
 
     Container content = getContentPane();
     content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
@@ -47,7 +47,7 @@ public class MatrixCalculatorWindow extends JFrame implements ActionListener {
     panel.add(btnPerformOperation);
 
     content.add(panel);
-    panel.setBounds(0, 0, 450, 170);
+    panel.setBounds(0, 0, 210, 125);
     panel.setBackground(Color.lightGray);
 
     btnExit = new JButton("Exit");
@@ -99,13 +99,13 @@ public class MatrixCalculatorWindow extends JFrame implements ActionListener {
           if(((JComboBox) e.getSource()).getSelectedItem().toString().equals("")){
 
           } else {
-              m1 = new Matrix(((JComboBox) e.getSource()).getSelectedItem().toString());
+              m1 = new Matrix(mainDirectory + "\\matrices\\" + ((JComboBox) e.getSource()).getSelectedItem().toString());
           }
       } else if (e.getSource().equals(cbxM2)){
           if(((JComboBox) e.getSource()).getSelectedItem().toString().equals("")){
 
           } else {
-              m2 = new Matrix(((JComboBox) e.getSource()).getSelectedItem().toString());
+              m2 = new Matrix(mainDirectory + "\\matrices\\"+ ((JComboBox) e.getSource()).getSelectedItem().toString());
           }
       } else if (e.getSource().equals(cbxOperation)){
           if(((JComboBox) e.getSource()).getSelectedItem().toString().equals("")){
@@ -118,17 +118,19 @@ public class MatrixCalculatorWindow extends JFrame implements ActionListener {
 
   public void loadFiles(){
     File dir = new File(mainDirectory + "/matrices");
+    mainDirectory.replace("/", "\\");
     files = dir.listFiles();
     if(files != null){
       cbxM1.addItem("");
       cbxM2.addItem("");
       for(File i : files){
-        cbxM1.addItem(i.toString());
-        cbxM2.addItem(i.toString());
+        cbxM1.addItem(i.toString().replace(mainDirectory + "\\matrices\\", ""));
+        cbxM2.addItem(i.toString().replace(mainDirectory + "\\matrices\\", ""));
       }
     } else {
       System.out.println("NULL");
     }
+    mainDirectory.replace("\\","/");
   }
 
   public void setControlValues(){
