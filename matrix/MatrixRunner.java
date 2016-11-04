@@ -34,6 +34,10 @@ public class MatrixRunner {
 		System.out.println("Matrix Operation Result:\n" + result.toString());
 		System.out.println("The result matrix is: " + (result.isSymmetric() ? "Symmetric" : "Not Symmetric"));
 
+		//m1.ref();
+
+		//System.out.println("\nMatrix 1 Ref:\n" + m1.toString());
+
 	}
 
 }

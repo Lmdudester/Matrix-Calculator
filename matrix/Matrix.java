@@ -3,9 +3,10 @@ package matrix;
 import java.util.Scanner;
 import java.io.File;
 import java.lang.IllegalStateException;
+import java.math.BigDecimal;
 
 public class Matrix {
-	private double[][] matrix;
+	private BigDecimal[][] matrix;
 	int rows, columns;
 
 	/*
@@ -14,7 +15,7 @@ public class Matrix {
 	 * - Initializes all values to 0.0
 	 */
 	public Matrix(int r, int c){
-		matrix = new double[r][c];
+		matrix = new BigDecimal[r][c];
 		rows = r;
 		columns = c;
 	}
@@ -41,7 +42,7 @@ public class Matrix {
 					 rows = line.nextInt();
 		 			 line.next();
 		 			 columns = line.nextInt();
-					 matrix = new double[rows][columns];
+					 matrix = new BigDecimal[rows][columns];
 
 					 //Places all values into Matrix
 	         for(int r = 0; r < rows; r++){
@@ -80,7 +81,7 @@ public class Matrix {
 			throw new ArrayIndexOutOfBoundsException("Matrix is [" + rows + ", " + columns + "]. Position ["
 					+ r + ", " + c + "] does not exist.");
 
-		matrix[r][c] = value;
+		matrix[r][c] = new BigDecimal(value);
 	}
 
 	/*
@@ -91,9 +92,8 @@ public class Matrix {
 		if(r >= rows || r < 0 || c >= columns || c < 0)
 			throw new ArrayIndexOutOfBoundsException("Matrix is [" + rows + ", " + columns + "]. Position ["
 					+ r + ", " + c + "] does not exist.");
-		return matrix[r][c];
+		return matrix[r][c].doubleValue();
 	}
-
 
 	/*****Instance Methods******/
 
@@ -107,13 +107,15 @@ public class Matrix {
 		}
 		for(int c = 0; c < this.columns; c ++){
 			for(int r = c + 1; r < this.rows; r ++){
-				if(this.matrix[r][c] != this.matrix[c][r]){
+				if(this.matrix[r][c].compareTo(this.matrix[c][r]) != 0){
 					return false;
 				}
 			}
 		}
 		return true;
 	}
+
+	//---Here---
 
 	/*
 	 * _____equals_____
@@ -137,7 +139,7 @@ public class Matrix {
 		}
 		for(int r = 0; r < this.rows; r++){
 	 		for(int c = 0; c < this.columns; c++){
-				if(this.matrix[r][c] != input.getIndex(r,c)){
+				if(this.getIndex(r,c) != input.getIndex(r,c)){
 	 				return false;
 	 			}
 	 		}
@@ -152,7 +154,7 @@ public class Matrix {
 	 * - Switches the Matrix to it's transpose
 	 */
 	public void transpose(){
-		double[][] matrixT = new double[columns][rows];
+		BigDecimal[][] matrixT = new BigDecimal[columns][rows];
 
 		for(int r = 0; r < rows; r++){
 			for(int c = 0; c < columns; c++){
@@ -176,7 +178,7 @@ public class Matrix {
 		checkRowInput(r1);
 		checkRowInput(r2);
 
-		double[] temp = matrix[r1 - 1];
+		BigDecimal[] temp = matrix[r1 - 1];
 		matrix[r1 - 1] = matrix[r2 - 1];
 		matrix[r2 - 1] = temp;
 	}
@@ -190,7 +192,7 @@ public class Matrix {
 		checkRowInput(r);
 
 		for(int c = 0; c < columns; c++){
-			matrix[r-1][c] *= scalar;
+			matrix[r-1][c] = matrix[r-1][c].multiply(new BigDecimal(scalar));
 		}
 	}
 
@@ -203,7 +205,7 @@ public class Matrix {
 		checkRowInput(r2);
 
 		for(int c = 0; c < columns; c++){
-			matrix[r2 - 1][c] += matrix[r1 - 1][c];
+			matrix[r2 - 1][c].add(matrix[r1 - 1][c]);
 		}
 	}
 
@@ -214,18 +216,54 @@ public class Matrix {
 	public void rowAdd(int r1, int r2, double scalar){
 		checkRowInput(r1);
 		checkRowInput(r2);
+		BigDecimal temp;
 
 		for(int c = 0; c < columns; c++){
-			matrix[r2 - 1][c] += scalar*matrix[r1 - 1][c];
+			temp = matrix[r1 - 1][c];
+			temp = temp.multiply(new BigDecimal(scalar));
+			matrix[r2 - 1][c].add(temp);
 		}
 	}
 
+	/*
+   * _____scaleMatix______
+	 * - Scales the whole matrix by the parameter scalar
+	*/
 	public void scaleMatrix(double scalar){
 		for(int r = 0; r < this.rows; r++){
 			this.rowScale(r, scalar);
 		}
 	}
 
+	/*****Echeclon Forms*****/
+
+	/*
+	 * _____ref_____
+	 * - Changes the Matrix into its Row Echeclon Form
+	*//*
+	public void ref(){
+		int pvtR = -1;	//Pivot row tracked by pvtR
+		for(int c = 0; c < this.columns; c++){
+			for(int r = 0; r < this.rows; r++){
+				if(matrix[r][c] != 0.0 && r > pvtR){ //If the postion is non-zero and its after the previous pivot row
+					if(pvtR != -1 && r > pvtR + 1){	//If the pivot row has been set before and the new pivot point requires a rowswap
+						rowSwap(pvtR + 2,r + 1);
+						r = pvtR + 1;
+					}
+					pvtR = r;
+					rowScale(r + 1, 1/matrix[r][c]); //Make the pivot postion == 1
+					r++;
+					for(; r < this.rows; r++){	//For the rest of the rows under the pivot position
+						if(matrix[r][c] != 0.0){	//If the position is non-zero
+							rowAdd(pvtR+1,r+1,-1*(matrix[r][c]/matrix[pvtR][c])); //Add a scaled version of the row such that
+						}																												//this position is 0
+					}
+					break;
+				}
+			}
+		}
+	}
+*/
 	/*****Output Methods****/
 
 	/* _____toString_____
@@ -237,7 +275,7 @@ public class Matrix {
 		StringBuilder result = new StringBuilder();
 		for(int r = 0; r < rows; r++){
 			for(int c = 0; c < columns; c++){
-				result.append(matrix[r][c] + "\t");
+				result.append(matrix[r][c].doubleValue() + "\t");
 			}
 			result.append('\n');
 		}
