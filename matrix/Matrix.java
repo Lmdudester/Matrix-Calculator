@@ -243,27 +243,35 @@ public class Matrix {
 	*//*
 	public void ref(){
 		int pvtR = -1;	//Pivot row tracked by pvtR
+		BigDecimal temp, divide;
 		for(int c = 0; c < this.columns; c++){
 			for(int r = 0; r < this.rows; r++){
-				if(matrix[r][c] != 0.0 && r > pvtR){ //If the postion is non-zero and its after the previous pivot row
+				if(matrix[r][c].compareTo(new BigDecimal(0)) != 0 && r > pvtR){ //If the postion is non-zero and its after the previous pivot row
 					if(pvtR != -1 && r > pvtR + 1){	//If the pivot row has been set before and the new pivot point requires a rowswap
 						rowSwap(pvtR + 2,r + 1);
 						r = pvtR + 1;
 					}
 					pvtR = r;
-					rowScale(r + 1, 1/matrix[r][c]); //Make the pivot postion == 1
+					divide = new BigDecimal(1);
+					divide = divide.divide(matrix[r][c]);
+					rowScale(r + 1, divide.doubleValue());
+					//rowScale(r + 1, 1/matrix[r][c]); //Make the pivot postion == 1
 					r++;
 					for(; r < this.rows; r++){	//For the rest of the rows under the pivot position
-						if(matrix[r][c] != 0.0){	//If the position is non-zero
-							rowAdd(pvtR+1,r+1,-1*(matrix[r][c]/matrix[pvtR][c])); //Add a scaled version of the row such that
+						if(matrix[r][c].compareTo(new BigDecimal(0)) != 0){	//If the position is non-zero
+							temp = matrix[r][c];
+							temp = temp.divide(matrix[pvtR][c]);
+							temp = temp.multiply(new BigDecimal(-1));
+							rowAdd(pvtR+1,r+1,temp.doubleValue());
+							//rowAdd(pvtR+1,r+1,-1*(matrix[r][c]/matrix[pvtR][c])); //Add a scaled version of the row such that
 						}																												//this position is 0
 					}
 					break;
 				}
 			}
 		}
-	}
-*/
+	}*/
+
 	/*****Output Methods****/
 
 	/* _____toString_____
