@@ -2,22 +2,18 @@
 
 Performs basic operations upon Matrices stored in text or csv files.
 
-    - Reads Matrix Files Path's from command line
+    - Reads Matrix Files from a specified directory
+    - Uses GUI to specify two matrix files
     - Computes Matrix Operation
     - Returns Resulting Matrix
 
 Developed Using Java.
 
 ## How To Use:
-    Using Input Files:
-        1. Create 1 or more .csv or .txt files containing a matrix. (Format specified below)
-        2. Create a Matrix object with the .csv or .txt filepath string as its parameter. [Matrix(fPath)]
-        3. Call any of the methods described in the Methods Header Below
-
-    Creating in code:
-        1. Create a Matrix object giving rows and columns as parameters. [Matrix(rows, columns)]
-        2. Fill in each position using setIndex()
-        3. Call any of the methods described in the Methods Header Below
+   1) Place at least two .csv files of the proper formatting (See Below) into the *matricies* subfolder
+   2) Run MatrixCalc.bat
+   3) Use the GUI to choose the two matricies where the higher choice is A and the bottom is B as in: A (operation) B
+   4) Look to the terminal window for the result
 
 ## Methods:
     Matrix Arithmetic:
@@ -54,6 +50,15 @@ Developed Using Java.
         Transposing - transpose():
             - Changes the matrix to its transpose
 
+    Instance Methods:
+        Equality Checker - equals(Object obj)
+            - Compares the current instance to the given object
+            - Returns true if they are equal, but false otherwise
+        
+        Symmetry Checker - isSymmetric()
+            - Determines if the current instance is a symmetric matrix
+            - Returns true if it is, false otherwise
+
     Output:
         String - toString():
             - Returns the matrix in a string format
@@ -64,7 +69,7 @@ Developed Using Java.
   - RREF Generation, Identity Generation.
   - Develop Regressive Test Cases for all operations
   - Create Guide for using the calculator and making matrix files
-  - Implement a GUI for better usability
+  - Improve GUI for better usability
 
 ## Format for [matrix name].txt Files:
 
