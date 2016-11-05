@@ -10,10 +10,10 @@ Performs basic operations upon Matrices stored in text or csv files.
 Developed Using Java.
 
 ## How To Use:
-   1) Place at least two .csv files of the proper formatting (See Below) into the *matricies* subfolder
-   2) Run MatrixCalc.bat
-   3) Use the GUI to choose the two matricies where the higher choice is A and the bottom is B as in: A (operation) B
-   4) Look to the terminal window for the result
+   1. Place at least two .csv files of the proper formatting (See Below) into the *matricies* subfolder
+   2. Run MatrixCalc.bat
+   3. Use the GUI to choose the two matricies where the higher choice is A and the bottom is B as in: A (operation) B
+   4. Look to the terminal window for the result
 
 ## Methods:
     Matrix Arithmetic:
