@@ -4,7 +4,7 @@ Performs basic operations upon Matrices stored in text or csv files.
 
     - Reads Matrix Files from a specified directory
     - Uses GUI to specify two matrix files
-    - Computes Matrix Operation
+    - Computes Matrix Operation 
     - Returns Resulting Matrix
 
 Developed Using Java.
