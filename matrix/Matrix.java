@@ -115,8 +115,6 @@ public class Matrix {
 		return true;
 	}
 
-	//---Here---
-
 	/*
 	 * _____equals_____
 	 * - Returns true if the current instance and parameter matrix are equal
@@ -238,39 +236,51 @@ public class Matrix {
 	/*****Echeclon Forms*****/
 
 	/*
-	 * _____ref_____
-	 * - Changes the Matrix into its Row Echeclon Form
+	 * _____rref_____
+	 * - Changes the Matrix into its Reduced Row Echeclon Form
 	*//*
-	public void ref(){
-		int pvtR = -1;	//Pivot row tracked by pvtR
-		BigDecimal temp, divide;
-		for(int c = 0; c < this.columns; c++){
-			for(int r = 0; r < this.rows; r++){
-				if(matrix[r][c].compareTo(new BigDecimal(0)) != 0 && r > pvtR){ //If the postion is non-zero and its after the previous pivot row
-					if(pvtR != -1 && r > pvtR + 1){	//If the pivot row has been set before and the new pivot point requires a rowswap
-						rowSwap(pvtR + 2,r + 1);
-						r = pvtR + 1;
-					}
-					pvtR = r;
-					divide = new BigDecimal(1);
-					divide = divide.divide(matrix[r][c]);
-					rowScale(r + 1, divide.doubleValue());
-					//rowScale(r + 1, 1/matrix[r][c]); //Make the pivot postion == 1
-					r++;
-					for(; r < this.rows; r++){	//For the rest of the rows under the pivot position
-						if(matrix[r][c].compareTo(new BigDecimal(0)) != 0){	//If the position is non-zero
-							temp = matrix[r][c];
-							temp = temp.divide(matrix[pvtR][c]);
-							temp = temp.multiply(new BigDecimal(-1));
-							rowAdd(pvtR+1,r+1,temp.doubleValue());
-							//rowAdd(pvtR+1,r+1,-1*(matrix[r][c]/matrix[pvtR][c])); //Add a scaled version of the row such that
-						}																												//this position is 0
-					}
-					break;
-				}
-			}
-		}
-	}*/
+public void rref()
+{
+    int lead = 0;
+    int rowCount = rows;
+    int colCount = columns;
+    int i;
+    boolean quit = false;
+
+    for(int row = 0; row < rowCount && !quit; row++) {
+        if(colCount <= lead) {
+            quit = true;
+            break;
+        }
+        i = row;
+
+        while(!quit && matrix[i][lead].doubleValue() == 0.0) { //Here
+            i++;
+            if(rowCount == i) {
+                i=row;
+                lead++;
+
+                if(colCount == lead) {
+                    quit = true;
+                    break;
+                }
+            }
+        }
+
+        if(!quit)
+        {
+            this.rowSwap(i + 1, row + 1);
+
+            if(matrix[row][lead].doubleValue() != 0.0)
+                rowScale(row + 1, 1.0f / matrix[row][lead].doubleValue());
+
+            for(i = 0; i < rowCount; i++) {
+                if(i != row)
+                    rowAdd( row + 1, i + 1, matrix[i][lead].doubleValue()*-1);
+            }
+        }
+    }
+}*/
 
 	/*****Output Methods****/
 

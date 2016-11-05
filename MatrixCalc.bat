@@ -1,4 +1,4 @@
-
+@echo off
 javac matrix/Matrix.java
 javac gui/MatrixCalculatorWindow.java
 javac gui/MatrixCalculator.java
